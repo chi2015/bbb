@@ -1,0 +1,17 @@
+
+html, body {
+  background-color: #444444;
+  color: white;
+  font-family: "Verdana";
+  text-align:center;
+  margin: 0;
+}
+
+html {
+	min-height: 100%;
+}
+
+#cr-stage {
+    margin: 30px auto;
+    background-color: #000000;
+}
