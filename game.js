@@ -36,9 +36,18 @@ var assetsObj = {
 };
 
 window.onload = function() {
-	var winHeight = window.innerHeight;
-	var gameBlockHeight = Math.floor(winHeight/180) * 180;
-	var gameBlockWidth = gameBlockHeight / 2;
+	var winWidth = window.innerWidth, winHeight = window.innerHeight,
+	gameBlockWidth, gameBlockHeight;
+	
+	if (winHeight > winWidth) {
+		gameBlockWidth = Math.floor(winWidth/90) * 90;
+		gameBlockHeight = gameBlockWidth * 150 / 90;
+	}
+	else {
+		gameBlockHeight = Math.floor(winHeight/150) * 150;
+		gameBlockWidth = gameBlockHeight * 90 /150;
+	}
+	
 
 	Crafty.init(gameBlockWidth, gameBlockHeight);
 	
@@ -47,9 +56,9 @@ window.onload = function() {
 			this.basicSize = Crafty.viewport.width / 90;
 			this.gapSize = this.basicSize;
 			this.brickSize = this.basicSize * 12;
-			this.roofY = 29 * this.gapSize;
+			this.roofY = 21 * this.gapSize;
 			this.brickWithGap = this.gapSize + this.brickSize;
-			this.floorY = 147 * this.gapSize;
+			this.floorY = 139 * this.gapSize;
 			this.ballSize = this.basicSize * 4;
 			this.basicSpeed = Crafty.viewport.width * 1.5;
 			this.chromaRange = chroma.scale(['red','#ff9933','#ffcc00','#99cc00','#66ffff','#0066ff','#9933ff']);
@@ -57,7 +66,8 @@ window.onload = function() {
 		}
 	});
 	
-	Crafty.load(assetsObj, function() { Crafty.scene("Level"); });
+	Crafty.load(assetsObj, function() { /*Crafty.scene("Level");*/ });
+	Crafty.scene("Level");
 
 	window.addEventListener("resize", function() {
 		/*var newHeight = Math.floor(window.innerHeight/180) * 180;

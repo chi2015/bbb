@@ -17,8 +17,8 @@ Crafty.scene("Level", function() {
 	 Crafty.e("RightWall");
 	 var pause_btn = Crafty.e("2D, Canvas, pause_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 4,
 	  										  y : Crafty("Global").get(0).basicSize * 2,
-	  										  w : Crafty("Global").get(0).basicSize * 18,
-	  										  h : Crafty("Global").get(0).basicSize * 18}).bind("Click", function() {
+	  										  w : Crafty("Global").get(0).basicSize * 15,
+	  										  h : Crafty("Global").get(0).basicSize * 15}).bind("Click", function() {
 	  										  	if (game_over || Crafty.isPaused()) return;
 	  										  	if (!Crafty.isPaused()) Crafty.e("Background").setTitle("GAME PAUSED")
 	  										  	.addButton("resume_btn", 
@@ -30,8 +30,8 @@ Crafty.scene("Level", function() {
 	  										  }.bind(this));
 	 var sound_btn = Crafty.e("2D, Canvas, soundon_btn, SpriteAnimation, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 68,
 		                                                                                y : Crafty("Global").get(0).basicSize * 2,
-																						w : Crafty("Global").get(0).basicSize * 18,
-																						h : Crafty("Global").get(0).basicSize * 18})
+																						w : Crafty("Global").get(0).basicSize * 15,
+																						h : Crafty("Global").get(0).basicSize * 15})
 																				.reel("switchoff", 100, [[2, 2], [1, 2]])
 																				.reel("switchon", 100, [[1, 2], [2, 2]])
 										                                        .bind("Click", function() {
@@ -50,10 +50,10 @@ Crafty.scene("Level", function() {
 	 var mouse_clicked = false;
 	 var game_over = false;
 	 
-	 var level_text = Crafty.e("2D, DOM, Text").attr({ x: 0, y : Crafty("Global").get(0).basicSize * 6, w : Crafty.viewport.width})
-    .text(function () { return "Level&nbsp;"+level; }).textFont({ size: (Crafty("Global").get(0).basicSize * 10)+'px', weight: 'bold' }).textAlign('center')
+	 var level_text = Crafty.e("2D, DOM, Text").attr({ x: 0, y : Crafty("Global").get(0).basicSize * 4, w : Crafty.viewport.width})
+    .text(function () { return "Level&nbsp;"+level; }).textFont({ size: (Crafty("Global").get(0).basicSize * 8)+'px', weight: 'bold' }).textAlign('center')
     .dynamicTextGeneration(true);
-     var balls_cnt_text = Crafty.e("2D, DOM, Text").attr({ y : floor.y + Crafty("Global").get(0).ballSize})
+     var balls_cnt_text = Crafty.e("2D, DOM, Text").attr({ y : floor.y + Crafty("Global").get(0).basicSize * 2})
     .text(function () { return balls_init > 0 ? "x"+balls_init : ""; })
     .textFont({ size: (Crafty("Global").get(0).ballSize * 1.5)+'px'})
     .dynamicTextGeneration(true);
@@ -206,21 +206,26 @@ Crafty.scene("Level", function() {
 			level_state = "moving";
 	 };
 	 
+	 var oldMousePos = {};
+	 
 	 function stageMouseDown(e) {
 	 	if (!Crafty.isPaused() && level_state == "init" && !pause_btn.isAt(e.realX, e.realY) && !sound_btn.isAt(e.realX, e.realY))
 		 {
 			 Crafty.e("Direction");
 			 mouse_clicked = true;
+			 oldMousePos = {x : e.realX, y : e.realY};
 		 }
 	 }
 	 
 	 function stageMouseMove(e) { console.log('mouse move', e);
 	 	 if (mouse_clicked) {
+			 var movementX = e.realX - oldMousePos.x, movementY = e.realY - oldMousePos.y;
 			 var rotation = Crafty("Direction").get(0).rotation;
-			 rotation += -Math.sign(e.movementX);
-			 rotation += Math.sign(e.movementY)*Math.sign(270-rotation);
+			 rotation += -Math.sign(movementX);
+			 rotation += Math.sign(movementY)*Math.sign(270-rotation);
 			 if (rotation <= 180 || rotation >=360) cancelDirection();
 			 else Crafty("Direction").get(0).rotation = rotation;
+			 oldMousePos = {x : e.realX, y : e.realY};
 		}
 	 }
 	 
@@ -271,9 +276,9 @@ Crafty.scene("Level", function() {
 	 
 	 function appearButtons() {
 		 down_btn = Crafty.e("2D, Canvas, down_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 4,
-	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 3,
-	  										  w : Crafty("Global").get(0).basicSize * 12,
-	  										  h : Crafty("Global").get(0).basicSize * 12}).bind("Click", function() {
+	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 2,
+	  										  w : Crafty("Global").get(0).basicSize * 10,
+	  										  h : Crafty("Global").get(0).basicSize * 10}).bind("Click", function() {
 	  										  	Crafty("Ball").each(function() {
 													if (this.state == "moving") {
 														if (!next_place_defined) this.x = floor.w / 2 - Crafty("Global").get(0).ballSize / 2;
