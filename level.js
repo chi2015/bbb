@@ -17,8 +17,8 @@ Crafty.scene("Level", function() {
 	 Crafty.e("RightWall");
 	 var pause_btn = Crafty.e("2D, Canvas, pause_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 4,
 	  										  y : Crafty("Global").get(0).basicSize * 2,
-	  										  w : Crafty("Global").get(0).basicSize * 15,
-	  										  h : Crafty("Global").get(0).basicSize * 15}).bind("Click", function() {
+	  										  w : Crafty("Global").get(0).basicSize * 12,
+	  										  h : Crafty("Global").get(0).basicSize * 12}).bind("Click", function() {
 	  										  	if (game_over || Crafty.isPaused()) return;
 	  										  	if (!Crafty.isPaused()) Crafty.e("Background").setTitle("GAME PAUSED")
 	  										  	.addButton("resume_btn", 
@@ -28,10 +28,10 @@ Crafty.scene("Level", function() {
 	  										  	else if (Crafty("Background").get(0)) Crafty("Background").get(0).destroy();
 	  										  	setTimeout(function() { Crafty.trigger("PlaySound", "pause"); Crafty.pause(); }, 50);
 	  										  }.bind(this));
-	 var sound_btn = Crafty.e("2D, Canvas, soundon_btn, SpriteAnimation, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 68,
+	 var sound_btn = Crafty.e("2D, Canvas, soundon_btn, SpriteAnimation, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 74,
 		                                                                                y : Crafty("Global").get(0).basicSize * 2,
-																						w : Crafty("Global").get(0).basicSize * 15,
-																						h : Crafty("Global").get(0).basicSize * 15})
+																						w : Crafty("Global").get(0).basicSize * 12,
+																						h : Crafty("Global").get(0).basicSize * 12})
 																				.reel("switchoff", 100, [[2, 2], [1, 2]])
 																				.reel("switchon", 100, [[1, 2], [2, 2]])
 										                                        .bind("Click", function() {
@@ -276,7 +276,7 @@ Crafty.scene("Level", function() {
 	 
 	 function appearButtons() {
 		 down_btn = Crafty.e("2D, Canvas, down_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 4,
-	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 2,
+	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 3,
 	  										  w : Crafty("Global").get(0).basicSize * 10,
 	  										  h : Crafty("Global").get(0).basicSize * 10}).bind("Click", function() {
 	  										  	Crafty("Ball").each(function() {
@@ -288,10 +288,10 @@ Crafty.scene("Level", function() {
 	  										  });
 	 
 		 
-		 forward_btn = Crafty.e("2D, Canvas, forward_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 73,
-	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 4,
-	  										  w : Crafty("Global").get(0).basicSize * 12,
-	  										  h : Crafty("Global").get(0).basicSize * 12}).bind("MouseDown", function() {
+		 forward_btn = Crafty.e("2D, Canvas, forward_btn, Mouse").attr({ x : Crafty("Global").get(0).basicSize * 74,
+	  										  y : Crafty("Floor").get(0).y + Crafty("Global").get(0).basicSize * 3,
+	  										  w : Crafty("Global").get(0).basicSize * 10,
+	  										  h : Crafty("Global").get(0).basicSize * 10}).bind("MouseDown", function() {
 	  										  	Crafty("Ball").each(function() {
 														this.faster();
 												});
