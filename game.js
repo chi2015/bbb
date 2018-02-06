@@ -35,7 +35,7 @@ var assetsObj = {
 	}
 };
 
-window.onload = function() {
+function getViewportSize() {
 	var winWidth = window.innerWidth, winHeight = window.innerHeight,
 	gameBlockWidth, gameBlockHeight;
 	
@@ -48,8 +48,14 @@ window.onload = function() {
 		gameBlockWidth = gameBlockHeight * 90 /150;
 	}
 	
+	return {width: gameBlockWidth, height: gameBlockHeight};
+}
 
-	Crafty.init(gameBlockWidth, gameBlockHeight);
+var viewportSize = getViewportSize();
+
+window.onload = function() {
+
+	Crafty.init(viewportSize.width, viewportSize.height);
 	
 	Crafty.c("Global", {
 		init : function() {
@@ -70,14 +76,18 @@ window.onload = function() {
 	Crafty.scene("Level");
 
 	window.addEventListener("resize", function() {
-		/*var newHeight = Math.floor(window.innerHeight/180) * 180;
+	/*	var newHeight = getViewportSize().height;
 
-		if (newHeight!=Crafty.viewport.height && newHeight >= 180) {
-			var sc = newHeight / gameBlockHeight;
+		if (newHeight!=viewportSize.height && newHeight >= 180) {
+			var sc = newHeight / viewportSize.height;
 			var gameBlockEl = document.getElementById('cr-stage');
-			gameBlockEl.style.height = newHeight+'px';
-			gameBlockEl.style.width = (newHeight / 2)+'px';
+			viewportSize = getViewportSize();
+			console.log('scale', sc);
+			gameBlockEl.style.height = viewportSize.height +'px';
+			gameBlockEl.style.width = viewportSize.width+'px';
 			Crafty.viewport.scale(sc);
+			Crafty.viewport.reset();
+			Crafty.viewport.reload();
 			
 		}*/
 	});
