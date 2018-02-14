@@ -1,3 +1,5 @@
+'use strict';
+
 Crafty.c("Brick", {
 	init : function() {
 		this.addComponent("2D, DOM, Color, Tween");

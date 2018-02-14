@@ -1,3 +1,5 @@
+'use strict';
+
 Crafty.scene("Level", function() {
 	 var level = 0;
 	 var checkpoint = 1;
