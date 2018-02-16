@@ -193,15 +193,16 @@ Crafty.scene("Level", function() {
 			prepend_infinity_interval = setInterval(prependInfinity, 5000);
 			appear_buttons_timeout = setTimeout(appearButtons, 10000);
 			
-			var i=0;
+			var i=0, ballTimers = [];
 			
 			function moveBalls() {
+				if (i>1) clearTimeout(ballTimers[i-2]);
 				Crafty("Ball").get(i).direction = direction;
 				Crafty("Ball").get(i).moving();
 				moving_balls++;
 				balls_init--;
 				i++;
-				if (i<Crafty("Ball").length) setTimeout(moveBalls, 100);
+				if (i<Crafty("Ball").length) ballTimers[i-1] = setTimeout(moveBalls, 100);
 			}
 			
 			moveBalls();
